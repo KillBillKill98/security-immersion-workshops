@@ -18,6 +18,16 @@ The malware family is **Sodinokibi / REvil**, delivered through a supply-chain s
 
 ---
 
+## Result
+
+Completed all 6 milestones and 29 of 29 objectives at 100 percent. Finished rank 2 of 69 players with 2,750 points in 89 minutes.
+
+![Scenario review - 100 percent across all six milestones](scenario-review.png)
+
+![Leaderboard - rank 2 of 69](leaderboard.png)
+
+---
+
 ## Attack at a Glance
 
 The investigation ran backward from impact to initial access, then forward again to build the full picture.

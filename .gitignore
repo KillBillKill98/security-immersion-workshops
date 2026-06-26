@@ -1,0 +1,18 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local scratch
+*.tmp
+scratch/
+*.bak
+
+# Exports that may contain sensitive tenant data
+exports/raw/
+*-private.csv

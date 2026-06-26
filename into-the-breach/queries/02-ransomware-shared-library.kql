@@ -1,0 +1,16 @@
+// Milestone 2 - Impact
+// Identify the side-loaded ransomware DLL (mpsvc.dll)
+DeviceImageLoadEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where FileName endswith ".dll"
+| where InitiatingProcessFileName !in~ ("svchost.exe","services.exe")
+| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, SHA256
+| sort by Timestamp asc
+
+// Paired dropper: legitimate exe writing a dll
+DeviceFileEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where FileName endswith ".dll"
+| where InitiatingProcessFileName endswith ".exe"
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256, InitiatingProcessFileName
+| sort by Timestamp asc

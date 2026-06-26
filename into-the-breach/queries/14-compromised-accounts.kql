@@ -1,0 +1,16 @@
+// Milestone 6 - Full Scope
+// Tie accounts to attacker actions (jroader, sbeavers, uvmadmin)
+DeviceLogonEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-16))
+| where DeviceName has "dc01"
+| where AccountName !endswith "$"
+| summarize Logons=count(), First=min(Timestamp) by AccountName
+| sort by First asc
+
+// Password change by a compromised account
+AlertEvidence
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-16))
+| where AlertId in (
+    (AlertInfo | where Title has "password was changed by a compromised account" | distinct AlertId))
+| where EntityType == "User"
+| distinct AccountName

@@ -1,0 +1,17 @@
+// Milestone 5 - Execution
+// Word macro -> PowerShell -> mshta -> stager -> pneumaEX-windows.exe
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-16))
+| where DeviceName has "rehab-6"
+| where InitiatingProcessFileName =~ "winword.exe" or InitiatingProcessFileName =~ "mshta.exe"
+| project Timestamp, FileName, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp asc
+
+// Dropped callback executable
+DeviceFileEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-16))
+| where DeviceName has "rehab-6"
+| where FileName endswith ".exe"
+| where InitiatingProcessFileName =~ "powershell.exe"
+| project Timestamp, FileName, FolderPath, InitiatingProcessCommandLine
+| sort by Timestamp asc

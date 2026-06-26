@@ -1,0 +1,8 @@
+// Milestone 3 - C2 callback
+// Implant beacon to 40.76.11.104:2323
+DeviceNetworkEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where InitiatingProcessFileName has_any ("ITtestscript","pneumaEX","svchost")
+| where RemoteIPType == "Public"
+| project Timestamp, DeviceName, RemoteIP, RemotePort, InitiatingProcessFileName
+| sort by Timestamp asc

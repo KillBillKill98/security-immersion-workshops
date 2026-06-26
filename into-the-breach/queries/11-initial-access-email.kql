@@ -1,0 +1,21 @@
+// Milestone 5 - Initial Access
+// Internal spearphish (jroader -> sbeavers)
+EmailEvents
+| where Timestamp between (datetime(2026-06-14) .. datetime(2026-06-16))
+| where SenderFromDomain has "uvmhealth2" and RecipientEmailAddress has "uvmhealth2"
+| where ThreatTypes has_any ("Phish","Malware")
+| project Timestamp, SenderFromAddress, RecipientEmailAddress, Subject, ThreatTypes, AttachmentCount
+
+// External phish that compromised jroader (maxdefense.com)
+EmailEvents
+| where Timestamp between (datetime(2026-06-10) .. datetime(2026-06-16))
+| where RecipientEmailAddress has "jroader"
+| where SenderFromDomain !has "uvmhealth2"
+| where UrlCount > 0 or AttachmentCount > 0
+| project Timestamp, SenderFromAddress, RecipientEmailAddress, Subject, ThreatTypes, AttachmentCount, DeliveryAction
+
+// Malicious attachment across all recipients (nmis_connectivity.doc)
+EmailAttachmentInfo
+| where Timestamp between (datetime(2026-06-14) .. datetime(2026-06-16))
+| where ThreatTypes has "Malware"
+| project Timestamp, SenderFromAddress, RecipientEmailAddress, FileName, FileType, SHA256

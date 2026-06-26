@@ -1,0 +1,8 @@
+// Milestone 3 and 4 - Persistence via schtasks
+// DC and middle box both create "Network Controller Manager"
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where FileName =~ "schtasks.exe"
+| where ProcessCommandLine has "Network Controller Manager"
+| project Timestamp, DeviceName, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp asc

@@ -1,0 +1,7 @@
+// Milestone 2 - Impact
+// Unique endpoints where PowerShell downloaded the ransomware DLL
+DeviceFileEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where FileName =~ "mpsvc.dll"
+| where InitiatingProcessFileName =~ "powershell.exe"
+| summarize dcount(DeviceName)

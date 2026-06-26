@@ -1,0 +1,8 @@
+// Milestone 4 - Defense Evasion (T1562.001)
+// Defender disabled before credential dumping
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where DeviceName has "floor-5-adm"
+| where ProcessCommandLine has_any ("Set-MpPreference","RemoveDefinitions","DisableRealtimeMonitoring","ExclusionPath")
+| project Timestamp, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp asc

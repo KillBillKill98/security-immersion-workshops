@@ -1,0 +1,8 @@
+// Milestone 4 - Lateral Movement 2
+// WMI remote execution fingerprint on floor-5-adm
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where DeviceName has "floor-5-adm"
+| where InitiatingProcessFileName in~ ("wmiprvse.exe","wsmprovhost.exe","psexesvc.exe")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp asc

@@ -1,0 +1,28 @@
+{
+  "workshop": "Into the Breach",
+  "attack_date": "2026-06-15",
+  "malware_family": "Sodinokibi / REvil",
+  "network": {
+    "c2": ["40.76.11.104:2323"],
+    "secondary_ip": ["20.163.213.224"],
+    "staging_host": "uvmoutpost.eastus.cloudapp.azure.com",
+    "staging_ports": [8080, 3391],
+    "mssp_launch_host": "NMIS (192.168.0.100)"
+  },
+  "files": [
+    {"name": "nmis_connectivity.doc", "role": "macro dropper", "sha256": "aab936e7336b77ba16e048a12a38eaa96684e2b3464e14bf218866771db938a5"},
+    {"name": "pneumaEX-windows.exe", "role": "callback malware"},
+    {"name": "mpsvc.dll", "role": "ransomware shared library", "sha256": "8dd620d9aeb35960bb766458c8890ede987c33d239cf730f93fe49d90ae759dd"},
+    {"name": "msmpeng.exe", "role": "side-load host binary"},
+    {"name": "svchost.exe", "role": "masqueraded persistence binary"},
+    {"name": "ITtestscript.exe", "role": "dc persistence implant"},
+    {"name": "dnsExfiltrator.exe", "role": "dns exfiltration tool"},
+    {"name": "UVMHealth_Data.zip", "role": "exfiltrated archive"}
+  ],
+  "tools": ["Mimikatz", "SharpHound", "hydra.exe", "dnsExfiltrator"],
+  "accounts_compromised": ["jroader", "sbeavers", "uvmadmin"],
+  "phishing_recipients": ["jroader", "sbeavers", "reldo", "cjones", "emuirgo", "bberg", "mvalorel", "mperro"],
+  "endpoints_ransomware_executed": ["floor-5-adm", "rehab-6", "rehab-8"],
+  "lateral_movement_path": ["rehab-6", "floor-5-adm", "dc01"],
+  "persistence_task": "Microsoft\\Windows\\Network Controller\\Network Controller Manager"
+}

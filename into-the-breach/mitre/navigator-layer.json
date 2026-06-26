@@ -1,0 +1,29 @@
+{
+  "name": "Into the Breach - Hospital Ransomware",
+  "versions": {"attack": "14", "navigator": "4.9.1", "layer": "4.5"},
+  "domain": "enterprise-attack",
+  "description": "Techniques observed in the Microsoft Security Immersion Workshop: Into the Breach (Sodinokibi/REvil hospital intrusion).",
+  "techniques": [
+    {"techniqueID": "T1566.001", "tactic": "initial-access", "score": 100, "comment": "Spearphishing attachment nmis_connectivity.doc"},
+    {"techniqueID": "T1059.001", "tactic": "execution", "score": 100, "comment": "PowerShell stager chain"},
+    {"techniqueID": "T1204.002", "tactic": "execution", "score": 100, "comment": "User opened malicious macro doc"},
+    {"techniqueID": "T1047", "tactic": "execution", "score": 100, "comment": "WMI remote execution on floor-5-adm"},
+    {"techniqueID": "T1053.005", "tactic": "persistence", "score": 100, "comment": "schtasks Network Controller Manager"},
+    {"techniqueID": "T1562.001", "tactic": "defense-evasion", "score": 100, "comment": "Disabled Defender real-time protection"},
+    {"techniqueID": "T1036", "tactic": "defense-evasion", "score": 100, "comment": "Masqueraded svchost.exe and msmpeng.exe"},
+    {"techniqueID": "T1574.002", "tactic": "defense-evasion", "score": 100, "comment": "DLL side-loading of mpsvc.dll"},
+    {"techniqueID": "T1003.001", "tactic": "credential-access", "score": 100, "comment": "Mimikatz LSASS dumping"},
+    {"techniqueID": "T1110", "tactic": "credential-access", "score": 100, "comment": "RDP brute force via hydra"},
+    {"techniqueID": "T1087", "tactic": "discovery", "score": 100, "comment": "SharpHound account discovery"},
+    {"techniqueID": "T1482", "tactic": "discovery", "score": 100, "comment": "Domain trust discovery"},
+    {"techniqueID": "T1021.001", "tactic": "lateral-movement", "score": 100, "comment": "RDP into floor-5-adm"},
+    {"techniqueID": "T1039", "tactic": "collection", "score": 100, "comment": "Data from network share Z:\\UVMHealth_Data\\Records"},
+    {"techniqueID": "T1048", "tactic": "exfiltration", "score": 100, "comment": "DNS tunneling via dnsExfiltrator"},
+    {"techniqueID": "T1071.004", "tactic": "command-and-control", "score": 100, "comment": "DNS protocol C2"},
+    {"techniqueID": "T1071", "tactic": "command-and-control", "score": 100, "comment": "pneumaEX callback"},
+    {"techniqueID": "T1486", "tactic": "impact", "score": 100, "comment": "REvil data encryption"},
+    {"techniqueID": "T1657", "tactic": "impact", "score": 100, "comment": "Double extortion via PII exfil"}
+  ],
+  "gradient": {"colors": ["#ffe766", "#ff6666"], "minValue": 0, "maxValue": 100},
+  "legendItems": [{"label": "Observed in this incident", "color": "#ff6666"}]
+}

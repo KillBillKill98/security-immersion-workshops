@@ -1,0 +1,13 @@
+// Milestone 3 - Lateral Movement 1
+// AD enumeration tooling on the DC (SharpHound / BloodHound)
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where ProcessCommandLine has_any ("sharphound","Invoke-BloodHound","-collectionmethod")
+| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp asc
+
+// SharpHound output archive
+DeviceFileEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where FileName matches regex @"\d{14}_BloodHound\.zip$"
+| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName

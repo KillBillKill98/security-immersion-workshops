@@ -1,0 +1,15 @@
+// Milestone 4 - Credential Access (Brute Force, T1110)
+// Failed-logon burst reveals the true attack source (172.16.40.5 / rehab-6)
+DeviceLogonEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-16))
+| where DeviceName has "floor-5-adm"
+| where ActionType == "LogonFailed"
+| summarize Attempts=count(), First=min(Timestamp), Last=max(Timestamp) by RemoteIP, AccountName
+| sort by Attempts desc
+
+// Sentinel-sourced credential access alert
+AlertInfo
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where Category =~ "CredentialAccess"
+| where ServiceSource has "Sentinel"
+| project Timestamp, Title, Category, ServiceSource

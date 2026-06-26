@@ -1,0 +1,7 @@
+// Milestone 2 - Impact
+// Internal host issuing remote commands across the environment (maps to NMIS / 192.168.0.100)
+DeviceLogonEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where LogonType == "Network"
+| summarize Hosts=dcount(DeviceName), Targets=make_set(DeviceName) by RemoteIP
+| sort by Hosts desc

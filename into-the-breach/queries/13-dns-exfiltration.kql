@@ -1,0 +1,7 @@
+// Milestone 5 - Exfiltration (T1048 / T1071.004)
+// dnsExfiltrator zipping and tunneling patient records
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-16))
+| where ProcessCommandLine has "dnsExfiltrator" or ProcessCommandLine has "UVMHealth_Data"
+| project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName
+| sort by Timestamp asc

@@ -1,0 +1,18 @@
+// Milestone 2 - Impact
+// Where did Sodinokibi ransomware execute successfully (active, not prevented)
+AlertInfo
+| where Timestamp between (datetime(2026-06-15) .. datetime(2026-06-17))
+| where Title has "Sodinokibi" and Title has "active"
+| join kind=inner AlertEvidence on AlertId
+| where isnotempty(DeviceName)
+| distinct DeviceName, Title
+| sort by DeviceName asc
+
+// Ground truth: encryption burst per host
+let attackDay = datetime(2026-06-15);
+DeviceFileEvents
+| where Timestamp between (attackDay .. attackDay + 2d)
+| where ActionType == "FileModified"
+| summarize Files=count() by DeviceName, bin(Timestamp, 5m)
+| where Files > 100
+| sort by Files desc
